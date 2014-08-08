@@ -3,15 +3,16 @@
 from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Distutils import build_ext
+import numpy as np
 
 
 ext_modules = [
-        Extension("potrace._potrace", ["potrace/_potrace.pyx"], 
+        Extension("potrace._potrace", ["potrace/_potrace.pyx"],
             libraries=["potrace"]),
         Extension("potrace.bezier", ["potrace/bezier.pyx"],
-            libraries=["agg_pic"], language="c++"),
+            libraries=["agg"], language="c++"),
         Extension("potrace.agg.curves", ["potrace/agg/curves.pyx"],
-            libraries=["agg_pic"], language="c++"),
+            libraries=["agg"], language="c++"),
     ]
 
 
@@ -34,10 +35,11 @@ setup(
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Multimedia :: Graphics :: Graphics Conversion",
-    ],    
+    ],
 
     packages = ["potrace", "potrace.agg"],
     ext_modules = ext_modules,
-    
+    include_dirs = [np.get_include()],
+
     cmdclass = {"build_ext": build_ext},
 )
