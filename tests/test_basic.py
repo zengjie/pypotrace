@@ -44,5 +44,4 @@ def test_tree():
 
 
 if __name__ == "__main__":
-    test_errors()
     test_trace()
